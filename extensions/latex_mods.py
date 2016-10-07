@@ -13,7 +13,7 @@ from sphinx.util.texescape import tex_escape_map
 from sphinx.writers.latex import LaTeXWriter
 
 # remove usepackage for sphinx here, we add it later in the preamble in conf.py
-sphinx.writers.latex.HEADER = sphinx.writers.latex.HEADER.replace('\usepackage{sphinx}', '')
+sphinx.writers.latex.HEADER = sphinx.writers.latex.HEADER.replace(r'\usepackage{sphinx}', '')
 
 BaseTranslator = sphinx.writers.latex.LaTeXTranslator
 
@@ -32,7 +32,7 @@ class DocTranslator(BaseTranslator):
         else:
             look_node = node.parent
 
-        short_caption = unicode(look_node.get('alt', '')).translate(tex_escape_map)
+        short_caption = str(look_node.get('alt', '')).translate(tex_escape_map)
         if short_caption != "":
             short_caption = '[%s]' % short_caption
 
@@ -130,7 +130,7 @@ class DocTranslator(BaseTranslator):
         hlcode = hlcode.replace('\$', '$')
         hlcode = hlcode.replace('\%', '%')
         # workaround for Unicode issue
-        hlcode = hlcode.replace(u'€', u'@texteuro[]')
+        hlcode = hlcode.replace('€', '@texteuro[]')
         # must use original Verbatim environment and "tabular" environment
         if self.table:
             hlcode = hlcode.replace('\\begin{Verbatim}',
@@ -179,7 +179,7 @@ class CustomLaTeXTranslator(DocTranslator):
     def astext(self):
             return (#HEADER % self.elements +
                     #self.highlighter.get_stylesheet() +
-                    u''.join(self.body)
+                    ''.join(self.body)
                     #'\n' + self.elements['footer'] + '\n' +
                     #self.generate_indices() +
                     #FOOTER % self.elements
