@@ -7,7 +7,6 @@ import pybtex.style.names.lastfirst
 import pybtex.style.names.plain
 from docutils import nodes, transforms
 from docutils.parsers.rst import directives
-from oldPy import OrderedSet
 from pybtex.database.input import bibtex
 from sphinx import addnodes
 from sphinx.domains import Domain, ObjType
@@ -15,9 +14,8 @@ from sphinx.locale import l_, _
 from sphinx.roles import XRefRole
 from sphinx.util.compat import Directive
 
-import latex_codec
-
-#from backports import OrderedSet
+import latexcodec
+from ordered_set import OrderedSet
 
 # fix pybtex bug in some versions
 try:
@@ -33,9 +31,6 @@ try:
     pybtex.utils.CaseInsensitiveDict.get = _fixed_pybtex_get
 except:
     pass
-
-
-latex_codec.register()
 
 DEFAULT_CONF = {
   'file':           '',
