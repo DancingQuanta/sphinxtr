@@ -36,9 +36,9 @@ source_suffix = '.rst'
 source_encoding = 'utf-8-sig'
 
 # General information about the project.
-project = u'The Sphinx Thesis Resource (sphinxtr)'
-author = u'Jeff Terrace'
-copyright = u'by %s, 2012.' % author
+project = 'The Sphinx Thesis Resource (sphinxtr)'
+author = 'Jeff Terrace'
+copyright = 'by %s, 2012.' % author
 version = '0.1'
 release = '0.1'
 
@@ -76,7 +76,7 @@ else:
 
 # A string of reStructuredText that will be included at the end of
 # every source file that is read.
-rst_epilog = open(os.path.join(CURDIR, 'epilog.rst'),'r').read().decode('utf8')
+rst_epilog = open(os.path.join(CURDIR, 'epilog.rst'),'r').read()
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -180,12 +180,12 @@ htmlhelp_basename = 'htmlhelpoutput'
 
 # -- Options for LaTeX output --------------------------------------------------
 
-ADDITIONAL_PREAMBLE = """
+ADDITIONAL_PREAMBLE = r"""
 \input{preamble._tex}
 \usepackage{sphinx}
 """
 
-ADDITIONAL_FOOTER = """
+ADDITIONAL_FOOTER = r"""
 \input{footer._tex}
 """
 
