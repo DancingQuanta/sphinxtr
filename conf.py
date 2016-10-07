@@ -7,7 +7,7 @@ sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'extens
 
 # import the custom html and latex builders/translators/writers
 import html_mods
-import latex_mods
+# import latex_mods
 
 # If your documentation needs a minimal Sphinx version, state it here.
 #needs_sphinx = '1.0'
