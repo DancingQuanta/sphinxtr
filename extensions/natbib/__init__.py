@@ -17,7 +17,7 @@ import latex_codec
 import os
 import re
 
-from backports import OrderedSet
+from ordered_set import OrderedSet
 
 # fix pybtex bug in some versions
 try:
