@@ -13,7 +13,7 @@ from sphinx.util.texescape import tex_escape_map
 from sphinx.writers.latex import LaTeXWriter
 
 # remove usepackage for sphinx here, we add it later in the preamble in conf.py
-sphinx.writers.latex.HEADER = sphinx.writers.latex.HEADER.replace(r'\usepackage{sphinx}', '')
+# sphinx.writers.latex.HEADER = sphinx.writers.latex.HEADER.replace(r'\usepackage{sphinx}', '')
 
 BaseTranslator = sphinx.writers.latex.LaTeXTranslator
 
@@ -112,66 +112,66 @@ class DocTranslator(BaseTranslator):
             self.body.append('\\\\\n')
         self.table.rowcount += 1
 
-    def depart_literal_block(self, node):
-        code = self.verbatim.rstrip('\n')
-        lang = self.hlsettingstack[-1][0]
-        linenos = code.count('\n') >= self.hlsettingstack[-1][1] - 1
-        highlight_args = node.get('highlight_args', {})
-        if 'language' in node:
-            # code-block directives
-            lang = node['language']
-            highlight_args['force'] = True
-        if 'linenos' in node:
-            linenos = node['linenos']
-        def warner(msg):
-            self.builder.warn(msg, (self.curfilestack[-1], node.line))
-        hlcode = self.highlighter.highlight_block(code, lang, warn=warner,
-                linenos=linenos, **highlight_args)
-        hlcode = hlcode.replace('\$', '$')
-        hlcode = hlcode.replace('\%', '%')
-        # workaround for Unicode issue
-        hlcode = hlcode.replace('€', '@texteuro[]')
-        # must use original Verbatim environment and "tabular" environment
-        if self.table:
-            hlcode = hlcode.replace('\\begin{Verbatim}',
-                                    '\\begin{OriginalVerbatim}')
-            self.table.has_problematic = True
-            self.table.has_verbatim = True
-        # get consistent trailer
-        hlcode = hlcode.rstrip()[:-14] # strip \end{Verbatim}
-        hlcode = hlcode.rstrip() + '\n'
-        hlcode = '\n' + hlcode + '\\end{%sVerbatim}\n' % (self.table and 'Original' or '')
-        hlcode = hlcode.replace('Verbatim', 'lstlisting')
-        begin_bracket = hlcode.find('[')
-        end_bracket = hlcode.find(']')
-        hlcode = hlcode[:begin_bracket] + '[]' + hlcode[end_bracket+1:]
-        self.body.append(hlcode)
-        self.verbatim = None
+    # def depart_literal_block(self, node):
+        # code = self.verbatim.rstrip('\n')
+        # lang = self.hlsettingstack[-1][0]
+        # linenos = code.count('\n') >= self.hlsettingstack[-1][1] - 1
+        # highlight_args = node.get('highlight_args', {})
+        # if 'language' in node:
+            # # code-block directives
+            # lang = node['language']
+            # highlight_args['force'] = True
+        # if 'linenos' in node:
+            # linenos = node['linenos']
+        # def warner(msg):
+            # self.builder.warn(msg, (self.curfilestack[-1], node.line))
+        # hlcode = self.highlighter.highlight_block(code, lang, warn=warner,
+                # linenos=linenos, **highlight_args)
+        # hlcode = hlcode.replace('\$', '$')
+        # hlcode = hlcode.replace('\%', '%')
+        # # workaround for Unicode issue
+        # hlcode = hlcode.replace('€', '@texteuro[]')
+        # # must use original Verbatim environment and "tabular" environment
+        # if self.table:
+            # hlcode = hlcode.replace('\\begin{Verbatim}',
+                                    # '\\begin{OriginalVerbatim}')
+            # self.table.has_problematic = True
+            # self.table.has_verbatim = True
+        # # get consistent trailer
+        # hlcode = hlcode.rstrip()[:-14] # strip \end{Verbatim}
+        # hlcode = hlcode.rstrip() + '\n'
+        # hlcode = '\n' + hlcode + '\\end{%sVerbatim}\n' % (self.table and 'Original' or '')
+        # hlcode = hlcode.replace('Verbatim', 'lstlisting')
+        # begin_bracket = hlcode.find('[')
+        # end_bracket = hlcode.find(']')
+        # hlcode = hlcode[:begin_bracket] + '[]' + hlcode[end_bracket+1:]
+        # self.body.append(hlcode)
+        # self.verbatim = None
 
-    def visit_figure(self, node):
-        ids = ''
-        for id in self.next_figure_ids:
-            ids += self.hypertarget(id, anchor=False)
-        self.next_figure_ids.clear()
-        if 'width' in node and node.get('align', '') in ('left', 'right'):
-            self.body.append('\\begin{wrapfigure}{%s}{%s}\n\\centering' %
-                             (node['align'] == 'right' and 'r' or 'l',
-                              node['width']))
-            self.context.append(ids + '\\end{wrapfigure}\n')
-        else:
-            if (not 'align' in node.attributes or
-                node.attributes['align'] == 'center'):
-                # centering does not add vertical space like center.
-                align = '\n\\centering'
-                align_end = ''
-            else:
-                # TODO non vertical space for other alignments.
-                align = '\\begin{flush%s}' % node.attributes['align']
-                align_end = '\\end{flush%s}' % node.attributes['align']
-            self.body.append('\\begin{figure}[tbp]%s\n' % align)
-            if any(isinstance(child, nodes.caption) for child in node):
-                self.body.append('\\capstart\n')
-            self.context.append(ids + align_end + '\\end{figure}\n')
+    # def visit_figure(self, node):
+        # ids = ''
+        # for id in self.next_figure_ids:
+            # ids += self.hypertarget(id, anchor=False)
+        # self.next_figure_ids.clear()
+        # if 'width' in node and node.get('align', '') in ('left', 'right'):
+            # self.body.append('\\begin{wrapfigure}{%s}{%s}\n\\centering' %
+                             # (node['align'] == 'right' and 'r' or 'l',
+                              # node['width']))
+            # self.context.append(ids + '\\end{wrapfigure}\n')
+        # else:
+            # if (not 'align' in node.attributes or
+                # node.attributes['align'] == 'center'):
+                # # centering does not add vertical space like center.
+                # align = '\n\\centering'
+                # align_end = ''
+            # else:
+                # # TODO non vertical space for other alignments.
+                # align = '\\begin{flush%s}' % node.attributes['align']
+                # align_end = '\\end{flush%s}' % node.attributes['align']
+            # self.body.append('\\begin{figure}[tbp]%s\n' % align)
+            # if any(isinstance(child, nodes.caption) for child in node):
+                # self.body.append('\\capstart\n')
+            # self.context.append(ids + align_end + '\\end{figure}\n')
 
 sphinx.writers.latex.LaTeXTranslator = DocTranslator
 
