@@ -219,7 +219,7 @@ latex_elements = {
     'fncychap': '',
     
     # get rid of the sphinx wrapper class file
-    'wrapperclass': 'article',
+    'wrapperclass': 'puthesis',
     
     # override maketitle
     'maketitle': '\\maketitle\n\\abstract{\\input{abstract.inc}}',
