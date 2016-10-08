@@ -7,7 +7,7 @@ sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'extens
 
 # import the custom html and latex builders/translators/writers
 import html_mods
-# import latex_mods
+import latex_mods
 
 # If your documentation needs a minimal Sphinx version, state it here.
 #needs_sphinx = '1.0'
@@ -222,7 +222,7 @@ latex_elements = {
     'wrapperclass': 'article',
     
     # override maketitle
-    # 'maketitle': '\makefrontmatter',
+    'maketitle': '\\maketitle\n\\abstract{\\input{abstract.inc}}',
     # 'tableofcontents': '',
     
     # disable index printing
@@ -243,7 +243,7 @@ latex_documents = [
 latex_additional_files = [
     'tex/preamble._tex',
     'tex/footer._tex',
-    # 'tex/refstyle.bst',
+    'tex/Makefile',
     'refs.bib',
 ]
 
