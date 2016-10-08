@@ -19,7 +19,7 @@ def visit_subfig_tex(self, node):
 
 def depart_subfig_tex(self, node):
     figoutput = ''.join(self.body)
-    figoutput = figoutput.replace('[tbp]', '[t]{%s\\linewidth}' % node['width'])
+    figoutput = figoutput.replace('[htbp]', '[t]{%s\\linewidth}' % node['width'])
     figoutput = figoutput.replace('figure', 'subfigure')
     self.body = self.__body
     self.body.append(figoutput)
@@ -38,7 +38,7 @@ class subfigstart(nodes.General, nodes.Element):
     pass
 
 def visit_subfigstart_tex(self, node):
-    self.body.append('\n\\begin{figure}\n\\centering\n\\capstart\n')
+    self.body.append('\n\\begin{figure}[tbp]\n\\centering\n\\capstart\n')
 
 def depart_subfigstart_tex(self, node):
     pass
