@@ -61,7 +61,7 @@ style=numeric,
 sorting=none,
 maxcitenames=2
 ]{biblatex}
-\addbibresource{refs}
+\addbibresource{refs.bib}
 
 % nice description style
 \usepackage{enumitem}
