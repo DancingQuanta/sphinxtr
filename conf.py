@@ -191,7 +191,7 @@ ADDITIONAL_FOOTER = r"""
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
-    'papersize': 'letterpaper',
+    'papersize': 'a4paper',
     
     # * gets passed to \documentclass
     # * default options are single sided, double spaced
@@ -219,11 +219,11 @@ latex_elements = {
     'fncychap': '',
     
     # get rid of the sphinx wrapper class file
-    'wrapperclass': 'puthesis',
+    'wrapperclass': 'article',
     
     # override maketitle
-    'maketitle': '\makefrontmatter',
-    'tableofcontents': '',
+    # 'maketitle': '\makefrontmatter',
+    # 'tableofcontents': '',
     
     # disable index printing
     'printindex': '',
@@ -240,19 +240,11 @@ latex_documents = [
      True),
 ]
 
-latex_docclass = {
-    'manual': 'puthesis',
-}
-
 latex_additional_files = [
-    'tex/puthesis.cls',
     'tex/preamble._tex',
     'tex/footer._tex',
-    'tex/sphinx.sty',
-    'tex/Makefile',
-    'tex/refstyle.bst',
+    # 'tex/refstyle.bst',
     'refs.bib',
-    'tex/ccicons.sty',
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
