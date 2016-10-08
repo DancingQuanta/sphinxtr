@@ -55,7 +55,13 @@
 \usepackage{verbatim}
 
 % nice references
-\usepackage[sort,numbers]{natbib}
+\usepackage[
+backend=biber,
+style=numeric,
+sorting=none,
+maxcitenames=2
+]{biblatex}
+\addbibresource{refs}
 
 % nice description style
 \usepackage{enumitem}
