@@ -28,11 +28,38 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
 %%%% Use packages
 
-%\usepackage{amsfonts}
+% Fonts
+\usepackage[mono=false]{libertine}
+\usepackage[scaled=0.85]{beramono}%% or 0.82
+\usepackage[protrusion=true,expansion=true]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+\usepackage{amssymb,amsfonts,amsthm} % Math packages
+\usepackage[libertine]{newtxmath}
+\usepackage[separate-uncertainty=false,multi-part-units=single]{siunitx}
+\usepackage{gensymb}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[table]{xcolor}
+\usepackage[font=small,skip=0pt,labelfont=bf,textfont=it,up]{caption}
+
 
 %%% For figures
-\usepackage{graphicx}
-%\usepackage{subfig,rotate}
+\usepackage[pdftex]{graphicx}
+\usepackage{epstopdf}
+\epstopdfDeclareGraphicsRule{.gif}{png}{.png}{convert gif:#1 png:\OutputFile}
+\AppendGraphicsExtensions{.gif}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+% for subfigure
+\usepackage[margin=8pt]{subcaption}
+\captionsetup{labelfont=bf}
 
 %%% for comments
 \usepackage{verbatim}
@@ -54,24 +81,19 @@ maxcitenames=2
                       topsep=1em,
                       itemsep=0em}
 
-% for subfigure
-\usepackage[margin=8pt]{subcaption}
-\captionsetup{labelfont=bf}
-
 % for code listings
 \usepackage{listings}
-\IfFileExists{inconsolata.sty}{\usepackage{inconsolata}}{\usepackage{zi4}}
 \usepackage{color}
 \definecolor{codebg}{RGB}{248,248,248} % mimics html code style
 \definecolor{codeborder}{RGB}{204,204,204}
 \lstset{breaklines=true,
         breakatwhitespace=false,
-        basicstyle=\singlespacing\footnotesize\ttfamily,
-        columns=fixed,
+        basicstyle=\singlespacing\small\ttfamily,
+        columns=flexible,
         frame=single,
         rulecolor=\color{codeborder},
         backgroundcolor=\color{codebg}
-        }
+}
 
 %%% For tables
 \usepackage{multirow}
@@ -89,41 +111,18 @@ maxcitenames=2
 % default caption width is 4in for longtable, but wider for normal tables
 \setlength{\LTcapwidth}{\textwidth}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Printed vs. online formatting
-\ifdefined\printmode
+% pgfplotstable
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=1.12}
 
-% Printed copy
-% url package understands urls (with proper line-breaks) without hyperlinking them
-\usepackage{url}
-
-
-\else
-
-\ifdefined\proquestmode
-%ProQuest copy -- http://www.princeton.edu/~mudd/thesis/Submissionguide.pdf
-
-% ProQuest requires a double spaced version (set previously). They will take an electronic copy, so we want links in the pdf, but also copies may be printed or made into microfilm in black and white, so we want outlined links instead of colored links.
-\usepackage{hyperref}
-\hypersetup{bookmarksnumbered}
-
-% copy the already-set title and author to use in the pdf properties
-\makeatletter
-\hypersetup{pdftitle=\@title,pdfauthor=\@author}
-\makeatother
-
-\else
-% Online copy
-
-% adds internal linked references, pdf bookmarks, etc
-
-% turn all references and citations into hyperlinks:
-%  -- not for printed copies
-% -- automatically includes url package
-% options:
-%   colorlinks makes links by coloring the text instead of putting a rectangle around the text.
-\usepackage{hyperref}
-\hypersetup{colorlinks,bookmarksnumbered}
+% Hyperlinks
+\usepackage[unicode=true]{hyperref}
+\hypersetup{colorlinks,
+            linkcolor={red!50!black},
+            citecolor={blue!50!black},
+            urlcolor={blue!80!black},
+            bookmarksnumbered
+}
 
 % copy the already-set title and author to use in the pdf properties
 \makeatletter
@@ -132,5 +131,29 @@ maxcitenames=2
 
 % make the page number rather than the text be the link for ToC entries
 %\hypersetup{linktocpage}
-\fi % proquest or online formatting
-\fi % printed or online formatting
+
+% Clever references
+\usepackage{cleveref}
+
+% Set spacing
+\usepackage{setspace}
+
+% Subject fields
+
+\usepackage{physics}
+\usepackage{myphysics}
+\usepackage{mychem}
+\usepackage{chemfig}
+\usepackage[version=4]{mhchem}
+
+# Header and footer
+\@ifpackageloaded{fancyhdr}{
+  \pagestyle{fancy}
+  \fancyfoot{}
+  \fancyfoot[R]{}
+  \fancyfoot[C]{\thepage}
+  \fancyfoot[L]{Andrew Tolmie}
+  \renewcommand{\footrulewidth}{0.4pt}
+}{}
+
+
