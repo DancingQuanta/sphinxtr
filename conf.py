@@ -182,7 +182,6 @@ htmlhelp_basename = 'htmlhelpoutput'
 
 ADDITIONAL_PREAMBLE = r"""
 \input{preamble._tex}
-\usepackage{sphinx}
 """
 
 ADDITIONAL_FOOTER = r"""
@@ -219,7 +218,7 @@ latex_elements = {
     'fncychap': '',
     
     # get rid of the sphinx wrapper class file
-    'wrapperclass': 'puthesis',
+    'wrapperclass': 'article',
     
     # override maketitle
     'maketitle': '\\maketitle\n\\abstract{\\input{abstract.inc}}',
